@@ -104,17 +104,17 @@ require_once 'header.php';
 						<tr>
 							<td></td>
 							<td></td>
-							<td colspan="3"><span class="name name-2">Pokemon</span></td>
+							<td colspan="4"><span class="name name-2">Pokemon</span></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td></td>
 							<td>0 <span class="shield shield-none"></span></td>
 							<td>1 <span class="shield"></span></td>
-							<td>2 <span class="shield shield"></span></td>
+							<td>2 <span class="shield"></span></td>
 						</tr>
 						<tr>
-							<td rowspan="3"><span class="name name-1">Pokemon</span></td>
+							<td rowspan="4"><span class="name name-1">Pokemon</span></td>
 							<td>0 <span class="shield shield-none"></span></td>
 							<td><a href="#" class="rating star battle-0-0" shields="0,0">100</a></td>
 							<td><a href="#" class="rating star battle-1-0" shields="1,0">100</a></td>
@@ -127,7 +127,7 @@ require_once 'header.php';
 							<td><a href="#" class="rating star battle-2-1" shields="2,1">100</a></td>
 						</tr>
 						<tr>
-							<td>2 <span class="shield shield"></span></td>
+							<td>2 <span class="shield"></span></td>
 							<td><a href="#" class="rating star battle-0-2" shields="0,2">100</a></td>
 							<td><a href="#" class="rating star battle-1-2" shields="1,2">100</a></td>
 							<td><a href="#" class="rating star battle-2-2" shields="2,2">100</a></td>
@@ -255,7 +255,7 @@ require_once 'header.php';
 				<p>Battle Rating is a way of measuring battles beyond simply "win" and "loss"; it may be valuable to know not only which Pokemon can win, but which can do so while sustaining the least amount of damage, leaving them in a better position for the next fight.</p>
 				<h2>Pokemon Stats</h2>
 				<p>A Pokemon's actual stats are a result of its base stats, IV's, and a CP multiplier (determined by level). The stats shown are a Pokemon's actual stats at the given CP or level. "Overall" is a product of the three stats and gives a general idea for performance, mostly useful for comparing Pokemon of the same or similar species.</p>
-				<p>By default, Pokemon use the "maximum stat product" IV combination, which optimizes for the maximum amount of stats possible within the given CP limit.</p>
+				<p>By default, Pokemon have an IV combination that is the 64th best IV combination (sorted for stat product) using an IV floor of 5. Pokemon that are above level 35 to meet the CP cap have different default IV's to represent those found in lucky trades.</p>
 				<h2>Move Selection</h2>
 				<p>When using the auto select option, the simulator calculates which moves would be optimal in the current matchup. It does this in the steps below:</p>
 				<ol>

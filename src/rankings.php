@@ -101,6 +101,30 @@ switch($cup){
 	case "voyager":
 		$league = 'Voyager Cup';
 		break;
+
+	case "beam":
+		$league = 'Get Beamed';
+		break;
+
+	case "forest":
+		$league = 'Forest';
+		break;
+
+	case "premier":
+		$league = 'Premier';
+		break;
+
+	case "grunt-4":
+		$league = 'Grunt Cup 4';
+		break;
+
+	case "sorcerous":
+		$league = 'Sorcerous Cup';
+		break;
+
+	case "goteamup":
+		$league = 'GOTeamUp';
+		break;
 }
 
 $META_TITLE = $league . ' PvP Rankings';
@@ -142,6 +166,23 @@ require_once 'header.php';
 
 	<p class="description consistency hide"><b>These Pokemon perform the most dependably.</b> They provide consistent damage and rely less on baiting shields than other Pokemon.</p>
 
+	<p class="description beaminess hide"><b>Are you ready to Get Beamed?</b> Beam it up with this twist on Trainer Battles:</p>
+
+	<ul class="description beaminess hide">
+		<li>1 point for a Solar Beam or Hyper Beam KO</li>
+		<li>First to 3 points wins the set!</li>
+		<li>Show 6, bring 3, no duplicates</li>
+		<li>Any Pokemon can be on your team for support with the exceptions below, but remember only beams get you points!</li>
+		<ul>
+			<li>No Steel types. Resisting both beams is a jerk move.</li>
+			<li>No Shadow Pokemon. Pure beams, pure hearts!</li>
+		</ul>
+	</ul>
+
+	<p class="description beaminess hide">Battle until one player reaches 3 points and is declared the winner. Winning or losing the actual battles doesn't matter, so do what you can to get your beams or deny your opponent!</p>
+
+	<p class="description beaminess hide">The rankings below evaluate Pokemon based on their matchups and a very official Beaminess metric that measures the speediness, bait ability, and power of their beams:</p>
+
 	<p>Click or tap the rankings below for more details.</p>
 
 	<div class="check on limited hide"><span></span>Show <div class="limited-title">Limited Pokemon</div>*</div>
@@ -174,8 +215,9 @@ require_once 'header.php';
 			<li><b>Overall - </b> Derived from a Pokemon's score in all other categories. Moves are ranked based on usage in every category. Key Counters and Top Matchups, however, are taken from the Leads category.</li>
 			<li><b>Leads - </b> Ranking battles simulated with 2 shields vs. 2 shields.</li>
 			<li><b>Closers - </b> Ranking battles simulated with no shields vs. no shields.</li>
+			<li><b>Switches - </b> Ranking battles simulated with 6 turns of energy advantage and scored to favor safe matches.</li>
+			<li><b>Chargers - </b> Ranking battles simulated with 6 turns of energy advantage.</li>
 			<li><b>Attackers - </b> Ranking battles simulated with no shields vs. 2 shields.</li>
-			<li><b>Defenders - </b> Ranking battles simulated with 2 shields vs. no shields.</li>
 			<li><b>Consistency - </b> Rating of how dependent Pokemon are at baiting shields.</li>
 		</ul>
 		<p>Different Pokemon may succeed in different scenarios, so use these categories to help determine when a particular Pokemon would be the most valuable.</p>
@@ -235,6 +277,10 @@ require_once 'header.php';
 		<div class="ranking-header">Fast Moves</div>
 		<div class="ranking-header right">Usage</div>
 		<div class="moveset fast clear"></div>
+		<div class="footnote">
+			* Event or Elite TM exclusive<br>
+			<sup>†</sup> Unobtainable via TM
+		</div>
 	</div>
 	<div class="detail-section float">
 		<div class="ranking-header">Charged Moves</div>
@@ -242,6 +288,7 @@ require_once 'header.php';
 		<div class="moveset charged clear"></div>
 	</div>
 	<div class="clear"></div>
+	<div class="detail-section moveset-override">This Pokemon's recommended moveset has been manually set over the generated move usage data. This may be to prevent an impossible moveset or take advantage of specific matchups.</div>
 	<div class="detail-section typing">
 		<div class="rating-container">
 			<div class="ranking-header">Primary Type</div>
@@ -275,6 +322,10 @@ require_once 'header.php';
 		<div class="rating-container">
 			<div class="ranking-header">Stamina</div>
 			<div class="rating"></div>&nbsp;-
+			<div class="rating"></div>
+		</div>
+		<div class="rating-container">
+			<div class="ranking-header">Rank 1 Level &amp; IVs</div>
 			<div class="rating"></div>
 		</div>
 	</div>

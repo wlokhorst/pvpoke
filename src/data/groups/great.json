@@ -2,11 +2,16 @@
 	{
 		"speciesId":"azumarill",
 		"fastMove":"BUBBLE",
-		"chargedMoves":["PLAY_ROUGH","HYDRO_PUMP"]
+		"chargedMoves":["ICE_BEAM","HYDRO_PUMP"]
 	},
 	{
 		"speciesId":"tropius",
 		"fastMove":"AIR_SLASH",
+		"chargedMoves":["LEAF_BLADE","AERIAL_ACE"]
+	},
+	{
+		"speciesId":"tropius",
+		"fastMove":"RAZOR_LEAF",
 		"chargedMoves":["LEAF_BLADE","AERIAL_ACE"]
 	},
 	{
@@ -23,6 +28,16 @@
 		"speciesId":"scrafty",
 		"fastMove":"COUNTER",
 		"chargedMoves":["POWER_UP_PUNCH","FOUL_PLAY"]
+	},
+	{
+		"speciesId":"stunfisk",
+		"fastMove":"THUNDER_SHOCK",
+		"chargedMoves":["MUD_BOMB","DISCHARGE"]
+	},
+	{
+		"speciesId":"stunfisk_galarian",
+		"fastMove":"MUD_SHOT",
+		"chargedMoves":["ROCK_SLIDE","EARTHQUAKE"]
 	},
 	{
 		"speciesId":"skarmory",
@@ -61,7 +76,7 @@
 	},
 	{
 		"speciesId":"lanturn",
-		"fastMove":"WATER_GUN",
+		"fastMove":"SPARK",
 		"chargedMoves":["THUNDERBOLT","HYDRO_PUMP"]
 	},
 	{
@@ -87,7 +102,7 @@
 	{
 		"speciesId":"cresselia",
 		"fastMove":"PSYCHO_CUT",
-		"chargedMoves":["FUTURE_SIGHT","MOONBLAST"]
+		"chargedMoves":["GRASS_KNOT","MOONBLAST"]
 	},
 	{
 		"speciesId":"umbreon",
@@ -98,6 +113,11 @@
 		"speciesId":"whiscash",
 		"fastMove":"MUD_SHOT",
 		"chargedMoves":["MUD_BOMB","BLIZZARD"]
+	},
+	{
+		"speciesId":"swampert",
+		"fastMove":"MUD_SHOT",
+		"chargedMoves":["HYDRO_CANNON","SLUDGE_WAVE"]
 	},
 	{
 		"speciesId":"swampert",
@@ -122,7 +142,7 @@
 	{
 		"speciesId":"mew",
 		"fastMove":"SHADOW_CLAW",
-		"chargedMoves":["OVERHEAT","PSYSHOCK"]
+		"chargedMoves":["WILD_CHARGE","PSYSHOCK"]
 	},
 	{
 		"speciesId":"deoxys_defense",
@@ -145,19 +165,14 @@
 		"chargedMoves":["METEOR_MASH","PSYCHIC"]
 	},
 	{
+		"speciesId":"wigglytuff",
+		"fastMove":"CHARM",
+		"chargedMoves":["ICE_BEAM","PLAY_ROUGH"]
+	},
+	{
 		"speciesId":"hypno",
 		"fastMove":"CONFUSION",
-		"chargedMoves":["SHADOW_BALL","THUNDER_PUNCH"]
-	},
-	{
-		"speciesId":"bronzong",
-		"fastMove":"CONFUSION",
-		"chargedMoves":["PSYSHOCK","BULLDOZE"]
-	},
-	{
-		"speciesId":"togekiss",
-		"fastMove":"CHARM",
-		"chargedMoves":["ANCIENT_POWER","FLAMETHROWER"]
+		"chargedMoves":["ICE_PUNCH","THUNDER_PUNCH"]
 	},
 	{
 		"speciesId":"registeel",
@@ -177,6 +192,16 @@
 	{
 		"speciesId":"raichu_alolan",
 		"fastMove":"VOLT_SWITCH",
-		"chargedMoves":["THUNDER_PUNCH","GRASS_KNOT"]
+		"chargedMoves":["THUNDER_PUNCH","WILD_CHARGE"]
+	},
+	{
+		"speciesId":"ferrothorn",
+		"fastMove":"BULLET_SEED",
+		"chargedMoves":["POWER_WHIP","THUNDER"]
+	},
+	{
+		"speciesId":"cherrim_sunny",
+		"fastMove":"BULLET_SEED",
+		"chargedMoves":["WEATHER_BALL_FIRE","SOLAR_BEAM"]
 	}
 ]

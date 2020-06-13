@@ -62,13 +62,25 @@ var InterfaceMaster = (function () {
 
 				// Force 1500 if not general
 
-				if((cup != 'all')&&(cup != 'gen-5')){
+				if((cup != 'all')&&(cup != 'gen-5')&&(cup != "premier")){
 					league = 1500;
 
 					$(".league-select option[value=\"1500\"]").prop("selected","selected");
 				}
 
+				if(cup == "premier"){
+					league = 10000;
+
+					$(".league-select option[value=\"10000\"]").prop("selected","selected");
+				}
+
 				battle.setCP(league);
+
+				if(cup == "beam"){
+					category = "beaminess";
+					$(".description").hide();
+					$(".description."+category).show();
+				}
 
 				/* This timeout allows the interface to display the loading message before
 				being thrown into the data loading loop */
@@ -111,14 +123,6 @@ var InterfaceMaster = (function () {
 					limitedPokemon = ["medicham","lucario","venusaur","meganium","skarmory","altaria","bastiodon","probopass","tropius","azumarill"];
 				}
 
-
-				if(cup == "safari"){
-					$(".limited").show();
-					$(".check.limited").addClass("on");
-
-					limitedPokemon = ["venusaur","meganium","skarmory","altaria","bastiodon","probopass","tropius","azumarill","wormadam_trash","forretress","vigoroth","swampert"];
-				}
-
 				if(cup == "fantasy"){
 					$(".limited").show();
 					$(".check.limited").addClass("on");
@@ -138,29 +142,29 @@ var InterfaceMaster = (function () {
 
 					// Get names of of ranking moves
 
-					var moveNameStr = '';
+					var moveNameStr = "";
 
-					var arr = r.moveStr.split("-");
-					var move = pokemon.chargedMovePool[arr[1]-1];
-
-					moveNameStr = pokemon.fastMovePool[arr[0]].name;
-					if(pokemon.fastMovePool[arr[0]].legacy){
-						moveNameStr += "*";
-					}
-					moveNameStr += ", " + move.name;
-					if(move.legacy){
-						moveNameStr += "*";
-					}
-
-					if((arr.length > 2)&&(arr[2] != "0")){
-						move = pokemon.chargedMovePool[arr[2]-1];
-						moveNameStr += ", " + move.name;
-
-						if(move.legacy){
-							moveNameStr += "*";
+					// Put together the recommended moveset string
+					for(var n = 0; n < r.moveset.length; n++){
+						if(n == 0){
+							for(var j = 0; j < pokemon.fastMovePool.length; j++){
+								if(r.moveset[n] == pokemon.fastMovePool[j].moveId){
+									moveNameStr += pokemon.fastMovePool[j].displayName;
+									break;
+								}
+							}
+						} else{
+							for(var j = 0; j < pokemon.chargedMovePool.length; j++){
+								if(r.moveset[n] == pokemon.chargedMovePool[j].moveId){
+									moveNameStr += pokemon.chargedMovePool[j].displayName;
+									break;
+								}
+							}
 						}
 
-
+						if(n < r.moveset.length - 1){
+							moveNameStr += ", "
+						}
 					}
 
 					// Is this the best way to add HTML content? I'm gonna go with no here. But does it work? Yes!
@@ -284,6 +288,10 @@ var InterfaceMaster = (function () {
 			this.pushHistoryState = function(cup, cp, category, speciesId){
 				if(context == "custom"){
 					return false;
+				}
+
+				if(cup == "premier"){
+					cp = 10000;
 				}
 
 				var url = webRoot+"rankings/"+cup+"/"+cp+"/"+category+"/";
@@ -456,6 +464,8 @@ var InterfaceMaster = (function () {
 				pokemon.initialize(battle.getCP(), "gamemaster");
 				pokemon.selectRecommendedMoveset(category);
 
+				var pokeMoveStr = pokemon.generateURLMoveStr();
+
 				// If overall, display score for each category
 
 				if(r.scores){
@@ -528,7 +538,7 @@ var InterfaceMaster = (function () {
 						displayWidth = displayWidth + "%";
 					}
 
-					$details.find(".moveset.fast").append("<div class=\"rank " + fastMoves[n].type + "\"><div class=\"name-container\"><span class=\"number\">#"+(n+1)+"</span><span class=\"name\">"+fastMoves[n].name+(fastMoves[n].legacy === false ? "" : " *")+"</span></div><div class=\"rating-container\"><div class=\"rating\" style=\"width:"+displayWidth+"\">"+percentStr+"</span></div><div class=\"clear\"></div></div>");
+					$details.find(".moveset.fast").append("<div class=\"rank " + fastMoves[n].type + "\"><div class=\"name-container\"><span class=\"number\">#"+(n+1)+"</span><span class=\"name\">"+fastMoves[n].displayName+"</span></div><div class=\"rating-container\"><div class=\"rating\" style=\"width:"+displayWidth+"\">"+percentStr+"</span></div><div class=\"clear\"></div></div>");
 				}
 
 				// Display charged moves
@@ -549,7 +559,15 @@ var InterfaceMaster = (function () {
 						displayWidth = displayWidth + "%";
 					}
 
-					$details.find(".moveset.charged").append("<div class=\"rank " + chargedMoves[n].type + "\"><div class=\"name-container\"><span class=\"number\">#"+(n+1)+"</span><span class=\"name\">"+chargedMoves[n].name+(chargedMoves[n].legacy === false ? "" : " *")+"</span></div><div class=\"rating-container\"><div class=\"rating\" style=\"width:"+displayWidth+"\">"+percentStr+"</span></div><div class=\"clear\"></div></div>");
+					$details.find(".moveset.charged").append("<div class=\"rank " + chargedMoves[n].type + "\"><div class=\"name-container\"><span class=\"number\">#"+(n+1)+"</span><span class=\"name\">"+chargedMoves[n].displayName+"</span></div><div class=\"rating-container\"><div class=\"rating\" style=\"width:"+displayWidth+"\">"+percentStr+"</span></div><div class=\"clear\"></div></div>");
+				}
+
+				// Display moveset override notice where applicable
+
+				if( (pokemon.fastMove.moveId != fastMoves[0].moveId)
+					|| ((pokemon.chargedMoves[0].moveId != chargedMoves[0].moveId)&&(pokemon.chargedMoves[0].moveId != chargedMoves[1].moveId))
+				 	|| ((pokemon.chargedMoves[1].moveId != chargedMoves[0].moveId)&&(pokemon.chargedMoves[1].moveId != chargedMoves[1].moveId))){
+					$details.find(".detail-section.moveset-override").show();
 				}
 
 				// Helper variables for displaying matchups and link URL
@@ -568,7 +586,7 @@ var InterfaceMaster = (function () {
 					opponent.initialize(battle.getCP(), "gamemaster");
 					opponent.selectRecommendedMoveset(category);
 
-					var battleLink = host+"battle/"+cp+"/"+pokemon.speciesId+"/"+opponent.speciesId+"/"+scenario.shields[0]+""+scenario.shields[1]+"/"+r.moveStr+"/";
+					var battleLink = host+"battle/"+cp+"/"+pokemon.speciesId+"/"+opponent.speciesId+"/"+scenario.shields[0]+""+scenario.shields[1]+"/"+pokeMoveStr+"/";
 
 					// Append opponent's move string
 
@@ -611,7 +629,7 @@ var InterfaceMaster = (function () {
 					var opponent = new Pokemon(c.opponent, 1, battle);
 					opponent.initialize(battle.getCP(), "gamemaster");
 					opponent.selectRecommendedMoveset(category);
-					var battleLink = host+"battle/"+cp+"/"+pokemon.speciesId+"/"+opponent.speciesId+"/"+scenario.shields[0]+""+scenario.shields[1]+"/"+r.moveStr+"/";
+					var battleLink = host+"battle/"+cp+"/"+pokemon.speciesId+"/"+opponent.speciesId+"/"+scenario.shields[0]+""+scenario.shields[1]+"/"+pokeMoveStr+"/";
 
 					// Append opponent's move string
 
@@ -640,7 +658,7 @@ var InterfaceMaster = (function () {
 						battleLink += Math.min(opponent.fastMove.energyGain * (Math.floor((scenario.energy[1] * 500) / opponent.fastMove.cooldown)), 100);
 					}
 
-					var $item = $("<div class=\"rank " + opponent.types[0] + "\"><div class=\"name-container\"><span class=\"number\">#"+(n+1)+"</span><span class=\"name\">"+opponent.speciesName+"</span></div><div class=\"rating-container\"><div class=\"rating star\">"+c.opRating+"</span></div><a target=\"_blank\" href=\""+battleLink+"\"></a><div class=\"clear\"></div></div>");
+					var $item = $("<div class=\"rank " + opponent.types[0] + "\"><div class=\"name-container\"><span class=\"number\">#"+(n+1)+"</span><span class=\"name\">"+opponent.speciesName+"</span></div><div class=\"rating-container\"><div class=\"rating star\">"+(1000-c.rating)+"</span></div><a target=\"_blank\" href=\""+battleLink+"\"></a><div class=\"clear\"></div></div>");
 
 					$details.find(".counters").append($item);
 				}
@@ -708,6 +726,11 @@ var InterfaceMaster = (function () {
 				$details.find(".stats .rating").eq(4).html(Math.round(statRanges.hp.min * 10) / 10);
 				$details.find(".stats .rating").eq(5).html(Math.round(statRanges.hp.max * 10) / 10);
 
+				// Display Pokemon's highest IV's
+
+				var rank1Combo = pokemon.generateIVCombinations("overall", 1, 1)[0];
+				$details.find(".stats .rating").eq(6).html("Lvl " + rank1Combo.level + " " + rank1Combo.ivs.atk + "/" + rank1Combo.ivs.def + "/" + rank1Combo.ivs.hp);
+
 				// Show share link
 				var cup = $(".cup-select option:selected").val();
 				var cupName = $(".cup-select option:selected").html();
@@ -718,7 +741,7 @@ var InterfaceMaster = (function () {
 
 				// Add multi-battle link
 				if(context != "custom"){
-					var multiBattleLink = host+"battle/multi/"+cp+"/"+cup+"/"+pokemon.speciesId+"/"+scenario.shields[0]+""+scenario.shields[1]+"/"+r.moveStr+"/2-1/";
+					var multiBattleLink = host+"battle/multi/"+cp+"/"+cup+"/"+pokemon.speciesId+"/"+scenario.shields[0]+""+scenario.shields[1]+"/"+pokeMoveStr+"/2-1/";
 
 					// Append energy settings
 					multiBattleLink += pokemon.stats.hp + "/";
@@ -731,7 +754,7 @@ var InterfaceMaster = (function () {
 
 					multiBattleLink += "/";
 
-					$details.find(".share-link").before($("<div class=\"multi-battle-link\"><p>See all of <b>" + pokemon.speciesName + "'s</b> matchups:</p><a target=\"_blank\" class=\"button\" href=\""+multiBattleLink+"\">"+pokemon.speciesName+" vs. " + cupName +"</a></div>"));
+					$details.find(".detail-section.float").eq(2).before($("<div class=\"multi-battle-link\"><p>See all of <b>" + pokemon.speciesName + "'s</b> matchups:</p><a target=\"_blank\" class=\"button\" href=\""+multiBattleLink+"\">"+pokemon.speciesName+" vs. " + cupName +"</a></div>"));
 				} else{
 					$details.find(".share-link").remove();
 				}

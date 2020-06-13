@@ -46,6 +46,7 @@ function TrainingAI(l, p, b){
 		var pool = teamPool[league+""+cup];
 		var slotBucket = [];
 		var slots = [];
+		var roles = []; // Array of roles that have been filled on the team
 
 		// Put all the slots in bucket, multiple times for its weight value
 
@@ -113,8 +114,13 @@ function TrainingAI(l, p, b){
 
 			for(var n = 0; n < slotPool.length; n++){
 				var poke = slotPool[n];
+				var role = "none";
+
+				if(poke.role){
+					role = poke.role;
+				}
 				// Is this Pokemon valid to be added to the team?
-				if((selectedIds.indexOf(poke.speciesId) === -1)&&(Math.abs(poke.difficulty - level) <= 1)){
+				if((selectedIds.indexOf(poke.speciesId) === -1)&&(Math.abs(poke.difficulty - level) <= 1)&&(roles.indexOf(role) == -1)){
 					for(var j = 0; j < poke.weight; j++){
 						pokeBucket.push(poke);
 					}
@@ -127,6 +133,8 @@ function TrainingAI(l, p, b){
 
 			var pokemon = new Pokemon(poke.speciesId, player.index, battle);
 			pokemon.initialize(battle.getCP());
+
+			roles.push(poke.role);
 
 			// Select a random IV spread according to difficulty
 			var ivCombos = pokemon.generateIVCombinations("overall", 1, props.ivComboRange);
@@ -154,6 +162,11 @@ function TrainingAI(l, p, b){
 
 			roster.push(pokemon);
 			selectedIds.push(poke.speciesId);
+		}
+
+		// Sort roster by dex number
+		if(cup == "voyager"){
+			roster.sort((a,b) => (a.dex > b.dex) ? 1 : ((b.dex > a.dex) ? -1 : 0));
 		}
 
 		player.setRoster(roster);
@@ -915,21 +928,34 @@ function TrainingAI(l, p, b){
 
 				// Dramatically scale weight based on winning or losing
 				if(scenario.average < 500){
-					weight = Math.max(Math.round(Math.pow(scenario.average / 100, 4) / 20), 1);
+					weight = Math.round(Math.pow(scenario.average / 100, 4) / 20);
 				} else{
-					// If the opponent is switch locked, favor the hard counter
-					if(opponentPlayer.getSwitchTimer() < 10){
-						weight = Math.round((scenario.average-250) / 2);
-					} else{
+
+					if((opponentPlayer.getSwitchTimer() > 10)||(poke.hp <= 0)){
+						// If the opponent is switch locked, favor the hard counter
 						weight = Math.round(Math.pow((scenario.average-250) / 100, 4));
+					} else{
+						// If the opponent isn't switch locked, favor the softer counter
+						weight = Math.round(Math.pow((1000-scenario.average) / 100, 4));
 					}
 
+				}
+
+				if(weight < 1){
+					weight = 1;
 				}
 
 				switchOptions.push(new DecisionOption(i, weight));
 			}
 		}
 
+		if(self.hasStrategy("BAD_DECISION_PROTECTION")){
+			switchOptions.sort((a,b) => (a.weight > b.weight) ? -1 : ((b.weight > a.weight) ? 1 : 0));
+
+			if((switchOptions.length > 1)&&(switchOptions[0].weight > switchOptions[1].weight * 4)){
+				switchOptions.splice(1, 1);
+			}
+		}
 		var switchChoice = self.chooseOption(switchOptions);
 		return switchChoice.name;
 	}

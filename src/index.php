@@ -27,31 +27,35 @@
 	<!--Update section for updates-->
 	<h3>What's New</h3>
 
-	<h4>v1.14.3 (March 22, 2020)</h4>
+	<h4>v1.15.2 (June 10, 2020)</h4>
 	<ul>
-		<li>Rankings now display Pokemon typing, weaknesses, and resistances.</li>
-		<li>Identified and fixed a rounding issue with type effectiveness in damage calculations for double- and triple-resisted moves.</li>
+		<li>GO Stadium Cliffhanger support added to Team Builder:</li>
 		<ul>
-			<li>This issue had no impact in the majority of matchups but affected breakpoint and bulkpoint calculations for double- and triple-resisted moves. These breakpoints are reachable with 0.1-0.2 less Attack than previously shown.</li>
+			<li>Display for team and Pokemon points</li>
+			<li>Alternatives are filtered based on your remaining points</li>
 		</ul>
-		<li>Fixed a breakpoint calculation issue for guaranteeing breakpoints against Shadow Pokemon.</li>
-		<li>Search bar processing on Rankings and Multi-Battle has been tweaked for smoother typing on mobile.</li>
-		<li>Added "Shadow" and "Shadow Eligible" tags to the Custom Rankings filters.</li>
+	</ul>
+
+	<h4>v1.14.19 (May 11, 2020)</h4>
+	<ul>
+		<li>Simulations, rankings, meta groups, and Training Battles have been updated with the latest move balance updates for Wild Charge, Moonblast, and Drill Run.</li>
+		<li>Premier Cup is now available in Training Battles.</li>
 	</ul>
 
 	<h3>Latest Article</h3>
 
 	<div class="article-item flex">
 		<div class="col-3">
-			<a href="<?php echo $WEB_ROOT; ?>articles/cliffhanger-team-building/">
-				<img src="<?php echo $WEB_ROOT; ?>assets/articles/cliffhanger-thumb.jpg" />
+			<a href="<?php echo $WEB_ROOT; ?>articles/best-elite-tm-candidates-pvp/">
+				<img src="<?php echo $WEB_ROOT; ?>assets/articles/elite-tm-thumb.jpg" />
 			</a>
 		</div>
 		<div class="col-9">
-			<h4><a href="<?php echo $WEB_ROOT; ?>articles/cliffhanger-team-building/">Team Building for GO Stadium Cliffhanger</a></h4>
-			<div class="date"> January 4, 2020</div>
-			<p>GO Stadium has introduced an exciting new format called Cliffhanger! Learn how to spend your points and build your Cliffhanger team from the ground up.</p>
+			<h4><a href="<?php echo $WEB_ROOT; ?>articles/best-elite-tm-candidates-pvp/">Best Elite TM Candidates for PvP</a></h4>
+			<div class="date">April 28, 2020</div>
+			<p>Elite TM's are now available! Which exclusive moves and Pokemon are the best for your PvP team?</p>
 		</div>
+
 	</div>
 
 </div>

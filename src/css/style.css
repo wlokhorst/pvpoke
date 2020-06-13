@@ -548,6 +548,9 @@ header {
 .poke.multi .poke-stats {
   display: block;
 }
+.poke.multi .poke-count.error {
+  color: #b9008f;
+}
 .poke.multi .format-select {
   margin-top: 62px;
 }
@@ -589,6 +592,16 @@ header {
 }
 .poke.multi .rankings-container .rank .name-container {
   float: none;
+}
+.poke.multi .rankings-container .rank span.cliffhanger-points {
+  font-weight: normal;
+  border: 1px solid;
+  border-radius: 20px;
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 5px;
+  padding-top: 2px;
 }
 .poke.multi .rankings-container .rank .moves {
   margin-left: 0;
@@ -1296,7 +1309,7 @@ select, input {
 }
 .timeline .item-container .item.buff {
   background-image: url("../img/move_buff.png") !important;
-  background-position: center -50% !important;
+  background-position: center 0% !important;
   background-repeat: no-repeat !important;
   -webkit-animation: BUFF-ANIMATION 1.5s infinite;
   /* Safari 4+ */
@@ -1310,7 +1323,7 @@ select, input {
 }
 .timeline .item-container .item.debuff {
   background-image: url("../img/move_debuff.png") !important;
-  background-position: center 150% !important;
+  background-position: center 50% !important;
   background-repeat: no-repeat !important;
   -webkit-animation: DEBUFF-ANIMATION 1.5s infinite;
   /* Safari 4+ */
@@ -1648,6 +1661,14 @@ select, input {
   text-transform: capitalize;
   padding: 2px 12px;
 }
+.rank .details .detail-section.moveset-override {
+  display: none;
+  font-size: 12px;
+  padding: 10px;
+}
+.rank .details .detail-section .footnote {
+  font-size: 12px;
+}
 .rank .details .detail-section .move {
   display: inline-block;
   padding: 5px;
@@ -1846,6 +1867,33 @@ select, input {
   display: none;
 }
 
+.team-content a.toggle {
+  margin-top: 10px;
+}
+
+.team-advanced .poke .poke-stats {
+  background: none;
+}
+.team-advanced .flex:first-of-type {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.team-advanced .flex:first-of-type .flex-section {
+  max-width: 350px;
+}
+.team-advanced .poke.flex {
+  float: none;
+  max-width: none;
+}
+.team-advanced .team-option {
+  font-size: 12px;
+  margin-right: 20px;
+}
+.team-advanced .team-option h3 {
+  font-size: 14px;
+  margin-top: 0;
+}
+
 .typings {
   display: none;
 }
@@ -1873,6 +1921,54 @@ select, input {
 .typings .offense table td.name {
   display: block;
   width: 120px;
+}
+.typings .overview-section {
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-bottom: 10px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.typings .overview-section .flex {
+  justify-content: space-between;
+}
+.typings .overview-section h3 {
+  margin: 10px 0 0px 0;
+  font-size: 18px;
+  line-height: 26px;
+}
+.typings .overview-section .grade {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 6px 8px;
+  border-radius: 8px;
+  line-height: 30px;
+}
+.typings .overview-section .notes div {
+  display: none;
+  font-size: 12px;
+  border-top: rgba(0, 0, 0, 0.25) 1px solid;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+.typings .overview-section .grade[grade=A] {
+  background: #018dba;
+  color: #fff6d4;
+}
+.typings .overview-section .grade[grade=B] {
+  background: #1b79b4;
+  color: #a5d6fb;
+}
+.typings .overview-section .grade[grade=C] {
+  background: #968cb6;
+  color: #fff6d4;
+}
+.typings .overview-section .grade[grade=D] {
+  background: #96359e;
+  color: #fd91e0;
+}
+.typings .overview-section .grade[grade=F] {
+  background: #b9008f;
+  color: #ff92e2;
 }
 
 .summary li {
@@ -2004,8 +2100,11 @@ select, input {
 .article p:first-of-type {
   margin-top: 1em;
 }
-.article p {
+.article p, .article ul {
   line-height: 26px;
+}
+.article ul li {
+  margin-bottom: 10px;
 }
 .article .article-section h3 {
   font-weight: normal;
@@ -3078,6 +3177,7 @@ a.toggle {
     height: 0;
     overflow: hidden;
     pointer-events: none;
+    white-space: nowrap;
     -webkit-transition: all 0.125s linear 0s;
     -moz-transition: all 0.125s linear 0s;
     -o-transition: all 0.125s linear 0s;
@@ -3095,7 +3195,7 @@ a.toggle {
   .menu .submenu a {
     float: none;
     margin: 6px 0;
-    width: 120px;
+    max-width: 150px;
   }
 
   .rank .details .detail-section.overall .rating-container .ranking-header {

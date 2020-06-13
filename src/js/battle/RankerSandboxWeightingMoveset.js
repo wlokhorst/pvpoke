@@ -415,6 +415,11 @@ var RankerMaster = (function () {
 					iterations = 1;
 				}
 
+
+				if((cup.name == "all")&&(battle.getCP() == 10000)){
+					iterations = 1;
+				}
+
 				if((cup.name == "all")&&(battle.getCP() == 2500)){
 					iterations = 1;
 				}
@@ -423,7 +428,23 @@ var RankerMaster = (function () {
 					iterations = 1;
 				}
 
+				if((cup.name == "goteamup")&&(battle.getCP() == 1500)){
+					iterations = 1;
+				}
+
 				if((cup.name == "voyager")&&(battle.getCP() == 1500)){
+					iterations = 1;
+				}
+
+				if((cup.name == "grunt-4")&&(battle.getCP() == 1500)){
+					iterations = 1;
+				}
+
+				if((cup.name == "forest")&&(battle.getCP() == 1500)){
+					iterations = 1;
+				}
+
+				if((cup.name == "premier")&&(battle.getCP() == 10000)){
 					iterations = 1;
 				}
 
@@ -449,6 +470,10 @@ var RankerMaster = (function () {
 						for(var j = 0; j < matches.length; j++){
 
 							var weight = Math.pow( Math.max((rankings[j].scores[n] / bestScore) - (.1 + (rankCutoffIncrease * n)), 0), rankWeightExponent);
+
+							if(cup.name == "sorcerous"){
+								weight = 1;
+							}
 
 							// Don't score Pokemon in the mirror match
 
@@ -545,7 +570,11 @@ var RankerMaster = (function () {
 						rankings[i].moves = {fastMoves: fastMoves, chargedMoves: chargedMoves};
 					}
 
-					rankings[i].moveStr = generateURLMoveStr(pokemon);
+					rankings[i].moveset = [pokemon.fastMove.moveId, pokemon.chargedMoves[0].moveId];
+
+					if(pokemon.chargedMoves[1]){
+						rankings[i].moveset.push(pokemon.chargedMoves[1].moveId);
+					}
 
 					rankings[i].score = rankings[i].scores[rankings[i].scores.length-1];
 
@@ -569,6 +598,7 @@ var RankerMaster = (function () {
 						delete match.score;
 						delete match.adjRating;
 						delete match.adjOpRating;
+						delete match.opRating;
 
 						rankings[i].counters.push(rankings[i].matches[j]);
 					}
@@ -587,6 +617,7 @@ var RankerMaster = (function () {
 						delete match.score;
 						delete match.adjRating;
 						delete match.adjOpRating;
+						delete match.OpRating;
 
 						if(match.rating > 500){
 							rankings[i].matchups.push(match);
