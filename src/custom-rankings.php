@@ -111,6 +111,7 @@ require_once 'header.php'; ?>
 					<div class="check" value="legendary"><span></span> Legendary</div>
 					<div class="check" value="mythical"><span></span> Mythical</div>
 					<div class="check" value="alolan"><span></span> Alolan</div>
+					<div class="check" value="galarian"><span></span> Galarian</div>
 					<div class="check" value="regional"><span></span> Regional</div>
 					<div class="check" value="shadow"><span></span> Shadow</div>
 					<div class="check" value="shadoweligible"><span></span> Shadow Eligible</div>
@@ -238,12 +239,12 @@ require_once 'header.php'; ?>
 
 <div class="details-template hide">
 	<div class="detail-section float margin">
-		<div class="ranking-header">Key Matchups</div>
+		<div class="ranking-header">Key Wins</div>
 		<div class="ranking-header right">Battle Rating</div>
 		<div class="matchups clear"></div>
 	</div>
 	<div class="detail-section float">
-		<div class="ranking-header">Top Counters</div>
+		<div class="ranking-header">Key Losses</div>
 		<div class="ranking-header right">Battle Rating</div>
 		<div class="counters clear"></div>
 	</div>

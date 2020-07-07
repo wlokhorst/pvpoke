@@ -10,11 +10,6 @@
 		"chargedMoves":["FRENZY_PLANT","SLUDGE_BOMB"]
 	},
 	{
-		"speciesId":"victreebel",
-		"fastMove":"RAZOR_LEAF",
-		"chargedMoves":["LEAF_BLADE","ACID_SPRAY"]
-	},
-	{
 		"speciesId":"raticate_alolan",
 		"fastMove":"QUICK_ATTACK",
 		"chargedMoves":["CRUNCH","HYPER_FANG"]
@@ -60,6 +55,11 @@
 		"chargedMoves":["PSYSHOCK","ICE_BEAM"]
 	},
 	{
+		"speciesId":"beedrill",
+		"fastMove":"POISON_JAB",
+		"chargedMoves":["X_SCISSOR","DRILL_RUN"]
+	},
+	{
 		"speciesId":"toxicroak",
 		"fastMove":"COUNTER",
 		"chargedMoves":["MUD_BOMB","SLUDGE_BOMB"]
@@ -68,11 +68,6 @@
 		"speciesId":"tentacruel",
 		"fastMove":"POISON_JAB",
 		"chargedMoves":["HYDRO_PUMP","ACID_SPRAY"]
-	},
-	{
-		"speciesId":"haunter",
-		"fastMove":"SHADOW_CLAW",
-		"chargedMoves":["SHADOW_PUNCH","SLUDGE_BOMB"]
 	},
 	{
 		"speciesId":"noctowl",
@@ -98,11 +93,6 @@
 		"speciesId":"hypno",
 		"fastMove":"CONFUSION",
 		"chargedMoves":["THUNDER_PUNCH","SHADOW_BALL"]
-	},
-	{
-		"speciesId":"glalie",
-		"fastMove":"ICE_SHARD",
-		"chargedMoves":["AVALANCHE","SHADOW_BALL"]
 	},
 	{
 		"speciesId":"medicham",

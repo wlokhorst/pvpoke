@@ -12,7 +12,7 @@ var GameMaster = (function () {
 		object.teamPools = [];
 		object.loadedData = 0;
 
-		$.getJSON( webRoot+"data/gamemaster.json?v="+siteVersion, function( data ){
+		$.getJSON( webRoot+"data/"+settings.gamemaster+".json?v="+siteVersion, function( data ){
 			object.data = data;
 
 			// Sort Pokemon alphabetically for searching
@@ -409,11 +409,11 @@ var GameMaster = (function () {
 				minStats = 2800;
 			}
 
-			var bannedList = ["mewtwo","mewtwo_armored","giratina_altered","groudon","kyogre","rayquaza","palkia","dialga","heatran","giratina_origin","darkrai","cobalion","terrakion","virizion","thundurus_incarnate","regigigas","tornadus_incarnate","landorus_incarnate", "reshiram", "zekrom"];
-			var permaBannedList = ["rotom","rotom_fan","rotom_frost","rotom_heat","rotom_mow","rotom_wash","phione","manaphy","shaymin_land","shaymin_sky","arceus","arceus_bug","arceus_dark","arceus_dragon","arceus_electric","arceus_fairy","arceus_fighting","arceus_fire","arceus_flying","arceus_ghost","arceus_grass","arceus_ground","arceus_ice","arceus_poison","arceus_psychic","arceus_rock","arceus_steel","arceus_water","kecleon","farfetchd_galarian"]; // Don't rank these Pokemon at all yet
+			var bannedList = ["mewtwo","mewtwo_armored","giratina_altered","groudon","kyogre","rayquaza","palkia","dialga","heatran","giratina_origin","darkrai","cobalion","terrakion","virizion","thundurus_incarnate","regigigas","tornadus_incarnate","landorus_incarnate", "reshiram", "zekrom", "kyurem"];
+			var permaBannedList = ["rotom","rotom_fan","rotom_frost","rotom_heat","rotom_mow","rotom_wash","phione","manaphy","shaymin_land","shaymin_sky","arceus","arceus_bug","arceus_dark","arceus_dragon","arceus_electric","arceus_fairy","arceus_fighting","arceus_fire","arceus_flying","arceus_ghost","arceus_grass","arceus_ground","arceus_ice","arceus_poison","arceus_psychic","arceus_rock","arceus_steel","arceus_water","kecleon"]; // Don't rank these Pokemon at all yet
 
 			var maxDexNumber = 493;
-			var releasedGen5 = ["snivy","servine","serperior","tepig","pignite","emboar","oshawott","dewott","samurott","lillipup","herdier","stoutland","purrloin","liepard","pidove","tranquill","unfezant","blitzle","zebstrika","foongus","amoonguss","drilbur","excadrill","litwick","lampent","chandelure","golett","golurk","deino","zweilous","hydreigon","pansage","panpour","pansear","simisage","simipour","simisear","ferroseed","ferrothorn","heatmor","durant","patrat","watchog","klink","klang","klinklang","yamask","cofagrigus","cobalion","terrakion","virizion","cryogonal","cubchoo","beartic","meltan","roggenrola","boldore","gigalith","tympole","palpitoad","seismitoad","dwebble","crustle","trubbish","garbodor","karrablast","escavalier","joltik","galvantula","shelmet","accelgor","timburr","gurdurr","conkeldurr","tirtouga","carracosta","archen","archeops","axew","fraxure","haxorus","throh","sawk","maractus","sigilyph","basculin","venipede","whirlipede","scolipede","minccino","cinccino","darumaka","darmanitan_standard","scraggy","scrafty","woobat","swoobat","tornadus_incarnate","audino","alomomola","thundurus_incarnate","rufflet","braviary","landorus_incarnate","genesect","solosis","duosion","reuniclus","gothita","gothitelle","gothorita","stunfisk","reshiram","zekrom","stunfisk_galarian","darumaka_galarian","darmanitan_galarian_standard","melmetal","obstagoon","perrserker"];
+			var releasedGen5 = ["snivy","servine","serperior","tepig","pignite","emboar","oshawott","dewott","samurott","lillipup","herdier","stoutland","purrloin","liepard","pidove","tranquill","unfezant","blitzle","zebstrika","foongus","amoonguss","drilbur","excadrill","litwick","lampent","chandelure","golett","golurk","deino","zweilous","hydreigon","pansage","panpour","pansear","simisage","simipour","simisear","ferroseed","ferrothorn","heatmor","durant","patrat","watchog","klink","klang","klinklang","yamask","cofagrigus","cobalion","terrakion","virizion","cryogonal","cubchoo","beartic","meltan","roggenrola","boldore","gigalith","tympole","palpitoad","seismitoad","dwebble","crustle","trubbish","garbodor","karrablast","escavalier","joltik","galvantula","shelmet","accelgor","timburr","gurdurr","conkeldurr","tirtouga","carracosta","archen","archeops","axew","fraxure","haxorus","throh","sawk","maractus","sigilyph","basculin","venipede","whirlipede","scolipede","minccino","cinccino","darumaka","darmanitan_standard","scraggy","scrafty","woobat","swoobat","tornadus_incarnate","audino","alomomola","thundurus_incarnate","rufflet","braviary","landorus_incarnate","genesect","solosis","duosion","reuniclus","gothita","gothitelle","gothorita","stunfisk","reshiram","zekrom","stunfisk_galarian","darumaka_galarian","darmanitan_galarian_standard","melmetal","obstagoon","perrserker","farfetchd_galarian", "kyurem", "ducklett", "swanna"];
 
 			// Aggregate filters
 
@@ -611,7 +611,7 @@ var GameMaster = (function () {
 									}
 								}
 							}
-							
+
 							// beam search
 							if (param == "beam") {
 								for(var k = 0; k < pokemon.chargedMovePool.length; k++){

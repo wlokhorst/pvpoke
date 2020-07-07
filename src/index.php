@@ -27,19 +27,25 @@
 	<!--Update section for updates-->
 	<h3>What's New</h3>
 
-	<h4>v1.15.2 (June 10, 2020)</h4>
+	<h4>v1.15.11 (July 4, 2020)</h4>
 	<ul>
-		<li>GO Stadium Cliffhanger support added to Team Builder:</li>
+		<li>New algorithm to generate move usage/preference stats in the rankings that should provide more realistic numbers:</li>
 		<ul>
-			<li>Display for team and Pokemon points</li>
-			<li>Alternatives are filtered based on your remaining points</li>
+			<li>Previous algorithm auto-selected moves in each matchup and counted move usage in simulated battles. This method was time-consuming and would result in low or no usage for moves the algorithm didn't favor,
+			such as Volt Switch or Blaze Kick.</li>
+			<li>New algorithm ranks moves based on damage, energy, stat change, and TDO calculations. It produces more realistic movesets and makes it easier to compare potential performance between moves.</li>
 		</ul>
 	</ul>
 
-	<h4>v1.14.19 (May 11, 2020)</h4>
+	<h4>v1.15.10 (July 2, 2020)</h4>
 	<ul>
-		<li>Simulations, rankings, meta groups, and Training Battles have been updated with the latest move balance updates for Wild Charge, Moonblast, and Drill Run.</li>
-		<li>Premier Cup is now available in Training Battles.</li>
+		<li>Implemented a search priority to Pokemon selection so popular Pokemon like Azumarill and Giratina will appear first without needing to type most of the name.</li>
+	</ul>
+
+	<h4>v1.15.9 (July 1, 2020)</h4>
+	<ul>
+		<li>Updated interface for Charged Move buttons/meters to show overflow energy like in-game.</li>
+		<li>Hovering over a Pokemon's selected Charged Moves shows damage in percentage and highlights the damage amount on the opponent's health bar.</li>
 	</ul>
 
 	<h3>Latest Article</h3>

@@ -16,6 +16,7 @@ function PokeSelect(element, i){
 	var interface;
 	var isCustom = false; // Whether or not the Pokemon has custom-set level, IVs, or traits
 	var context = "main";
+	var searchArr = []; // Array of searchable Pokemon sorted by priority
 
 	var currentHP; // The currently animated HP
 	var currentEnergy; // The currently animated energy
@@ -26,10 +27,22 @@ function PokeSelect(element, i){
 
 		$.each(pokemon, function(n, poke){
 
-			if(poke.fastMoves.length > 0){
-				$pokeSelect.append("<option value=\""+poke.speciesId+"\" type-1=\""+poke.types[0]+"\" type-2=\""+poke.types[1]+"\">"+poke.speciesName+"</option");
+			var priority = 1;
+
+			if(poke.searchPriority){
+				priority = poke.searchPriority;
 			}
+
+			searchArr.push({
+				speciesId: poke.speciesId,
+				speciesName: poke.speciesName,
+				priority: priority
+			});
+
+			$pokeSelect.append("<option value=\""+poke.speciesId+"\" type-1=\""+poke.types[0]+"\" type-2=\""+poke.types[1]+"\">"+poke.speciesName+"</option");
 		});
+
+		searchArr.sort((a,b) => (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0));
 
 		interface = InterfaceMaster.getInstance();
 
@@ -146,10 +159,10 @@ function PokeSelect(element, i){
 
 					$el.find(".move-select.charged").eq(i).find("option[value='"+chargedMove.moveId+"']").prop("selected","selected");
 					$el.find(".move-select.charged").eq(i).attr("class", "move-select charged " + chargedMove.type);
-
 					$el.find(".move-bar").eq(i).show();
 					$el.find(".move-bar").eq(i).find(".label").html(chargedMove.abbreviation);
-					$el.find(".move-bar").eq(i).find(".bar").css("height","100%");
+					$el.find(".move-bar").eq(i).find(".bar").css("height","0%");
+					$el.find(".move-bar").eq(i).find(".bar").eq(0).css("height","105%");
 					$el.find(".move-bar").eq(i).find(".bar").attr("class","bar " + chargedMove.type);
 					$el.find(".move-bar").eq(i).find(".bar-back").attr("class","bar-back " + chargedMove.type);
 				} else{
@@ -204,6 +217,7 @@ function PokeSelect(element, i){
 
 		$el.find(".hp .bar").css("width", ((health / selectedPokemon.stats.hp)*100)+"%");
 		$el.find(".hp .stat").html(health+" / "+selectedPokemon.stats.hp);
+		$el.find(".hp .bar.damage").hide();
 
 		currentHP = health;
 	}
@@ -221,7 +235,13 @@ function PokeSelect(element, i){
 		var energy = selectedPokemon.startEnergy + amount;
 		var $bar = $el.find(".move-bar").eq(index);
 
-		$bar.find(".bar").css("height", ((energy / selectedPokemon.chargedMoves[index].energy)*100)+"%");
+		$bar.find(".bar").each(function(i, value){
+			var extraEnergy = energy - (selectedPokemon.chargedMoves[index].energy * i);
+
+			$(this).css("height", ((extraEnergy / selectedPokemon.chargedMoves[index].energy)*105)+"%");
+		});
+
+		//$bar.find(".bar").css("height", ((energy / selectedPokemon.chargedMoves[index].energy)*100)+"%");
 
 		if(energy >= selectedPokemon.chargedMoves[index].energy){
 			$bar.addClass("active");
@@ -230,6 +250,18 @@ function PokeSelect(element, i){
 		}
 
 		currentEnergy = energy;
+	}
+
+	// Display a damage amount on the health bar (triggered from Interface.js when hovering over another selector's Charged Moves)
+
+	this.animateDamage = function(amount){
+		var health = Math.max(0, selectedPokemon.startHp - amount);
+
+		$el.find(".hp .bar.damage").css("width", ((amount / selectedPokemon.stats.hp)*100)+"%");
+		$el.find(".hp .bar.damage").show();
+
+		var position = Math.max( Math.ceil($el.find(".hp .bar").eq(0).width() - $el.find(".hp .bar.damage").width()), 0);
+		$el.find(".hp .bar.damage").css("left", position+"px");
 	}
 
 	// Reset IV and Level input fields, and other options when switching Pokemon
@@ -506,20 +538,14 @@ function PokeSelect(element, i){
 		if(searchStr == '')
 			return;
 
-		var found = false;
+		for(var i = 0; i < searchArr.length; i++){
+			var pokeName = searchArr[i].speciesName.toLowerCase();
 
-		$pokeSelect.find("option").not(".hide").each(function(index, value){
-			var pokeName = $(this).html().toLowerCase();
-
-			if((pokeName.startsWith(searchStr))&&(! found)){
-
-				$(this).prop("selected", "selected");
-
-				found = true;
-
-				return true;
+			if(pokeName.startsWith(searchStr)){
+				$pokeSelect.find("option[value=\""+searchArr[i].speciesId+"\"]").prop("selected", "selected");
+				break;
 			}
-		});
+		}
 
 		var id = $pokeSelect.find("option:selected").val();
 
@@ -791,10 +817,11 @@ function PokeSelect(element, i){
 		}
 
 		var dpe = Math.floor( (displayDamage / move.energy) * 100) / 100;
+		var percent = Math.floor( (displayDamage / opponent.hp) * 1000) / 10;
 
 		$tooltip.find(".name").html(move.name);
 		$tooltip.addClass(move.type);
-		$tooltip.find(".details").html(displayDamage + ' damage<br>' + move.energy + ' energy<br>' + dpe + ' dpe');
+		$tooltip.find(".details").html(displayDamage + ' (' + percent + '%) <span class="label">dmg</span><br>' + move.energy + ' <span class="label">energy</span><br>' + dpe + ' <span class="label">dpe</span>');
 
 		var width = $tooltip.width();
 		var left = (e.pageX - $(".section").first().offset().left) + 10;

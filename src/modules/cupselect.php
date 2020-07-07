@@ -1,8 +1,8 @@
 <select class="format-select">
 	<option value="all" cup="all">All Pokemon</option>
 	<option value="official" cup="premier">Premier Cup</option>
-	<option value="tsa-2" cup="sorcerous">Silph Sorcerous Cup</option>
-	<option value="community" cup="goteamup">GO Stadium GOTeamUp</option>
+	<option value="tsa-2" cup="catacomb">Silph Catacomb Cup</option>
+	<option value="tsa-2" cup="continentals-2">Season 2 Continentals</option>
 
 	<?php if(strpos($_SERVER['REQUEST_URI'], 'team-builder') !== false): ?>
 		<option value="community" cup="cliffhanger">GO Stadium Cliffhanger</option>
@@ -33,6 +33,8 @@
 	<option value="tempest" cat="tsa-1">Tempest Cup</option>
 	<option value="twilight" cat="tsa-1">Twilight Cup</option>
 	<option value="boulder" cat="tsa-1">Boulder Cup</option>
+	<option value="catacomb" cat="tsa-2">Silph Catacomb Cup</option>
+	<option value="continentals-2" cat="tsa-2">Season 2 Continentals</option>
 	<option value="sorcerous" cat="tsa-2">Silph Sorcerous Cup</option>
 	<option value="forest" cat="tsa-2">Forest Cup</option>
 	<option value="voyager" cat="tsa-2">Voyager Cup</option>
