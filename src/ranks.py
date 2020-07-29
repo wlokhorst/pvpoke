@@ -13,4 +13,7 @@ with open(abs_file_path, "r") as f:
     master_dict = json.load(f)
 
 for entry in master_dict["pokemon"]:
-    print(entry["speciesName"])
+    print(entry["speciesId"])
+    print(entry["baseStats"]["atk"])
+    print(entry["baseStats"]["def"])
+    print(entry["baseStats"]["hp"])
